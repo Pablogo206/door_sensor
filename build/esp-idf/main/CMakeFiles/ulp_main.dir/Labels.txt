@@ -1,0 +1,13 @@
+# Target labels
+ ulp_main
+# Source files and their labels
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/CMakeFiles/ulp_main
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/CMakeFiles/ulp_main.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/CMakeFiles/ulp_main-complete.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-install.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-mkdir.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-download.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-update.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-patch.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-configure.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main-prefix/src/ulp_main-stamp/ulp_main-build.rule

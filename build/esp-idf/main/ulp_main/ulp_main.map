@@ -1,0 +1,46 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x00000000         0x00000400         rw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj
+
+.text           0x00000000       0xbc load address 0x0000000c
+ *(.text)
+ .text          0x00000000       0xa8 CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj
+                0x00000000                entry
+                0x00000044                changed
+                0x00000060                edge_detected
+ .text          0x000000a8       0x14 CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj
+                0x000000a8                wake_up
+
+.data           0x000000bc        0x0 load address 0x000000c8
+                0x000000bc                . = ALIGN (0x4)
+ *(.data)
+ .data          0x000000bc        0x0 CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj
+ .data          0x000000bc        0x0 CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj
+
+.bss            0x000000bc       0x18 load address 0x000000c8
+                0x000000bc                . = ALIGN (0x4)
+ *(.bss)
+ .bss           0x000000bc       0x18 CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj
+                0x000000bc                next_edge
+                0x000000c0                debounce_counter
+                0x000000c4                debounce_max_count
+                0x000000c8                edge_count
+                0x000000cc                edge_count_to_wake_up
+                0x000000d0                io_number
+ .bss           0x000000d4        0x0 CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj
+
+.header         0x000000d4        0xc load address 0x00000000
+                0x000000d4        0x4 LONG 0x706c75
+                0x000000d8        0x2 SHORT 0xc LOADADDR (.text)
+                0x000000da        0x2 SHORT 0xbc SIZEOF (.text)
+                0x000000dc        0x2 SHORT 0x0 SIZEOF (.data)
+                0x000000de        0x2 SHORT 0x18 SIZEOF (.bss)
+OUTPUT(ulp_main elf32-esp32ulp)

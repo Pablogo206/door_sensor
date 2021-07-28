@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:IDF_PATH}/components/**"
+            ],
+            "compilerPath": "xtensa-esp32-elf-gcc"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${env:IDF_PATH}/components/**"
+            ],
+            "compilerPath": "C:\\Users\\pablo\\.espressif\\tools\\xtensa-esp32-elf\\esp-2020r3-8.4.0\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc",
+            "compileCommands": "C:\\Users\\pablo\\esp\\esp-idf\\workspace\\blink\\build\\compile_commands.json"
+        }
+    ],
+    "version": 4
+}

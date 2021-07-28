@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/Users/pablo/esp-idf/workspace/ulp/build/CMakeFiles/bootloader
+C:/Users/pablo/esp-idf/workspace/ulp/build/CMakeFiles/bootloader.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/CMakeFiles/bootloader-complete.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/pablo/esp-idf/workspace/ulp/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule

@@ -1,0 +1,10 @@
+changed T 00000044 
+debounce_counter B 000000c0 
+debounce_max_count B 000000c4 
+edge_count B 000000c8 
+edge_count_to_wake_up B 000000cc 
+edge_detected T 00000060 
+entry T 00000000 
+io_number B 000000d0 
+next_edge B 000000bc 
+wake_up T 000000a8 
