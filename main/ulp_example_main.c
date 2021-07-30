@@ -1,12 +1,3 @@
-/* ULP Example
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
-
 #include <stdio.h>
 #include "driver/uart.h"
 #include "esp_system.h"
@@ -57,6 +48,93 @@
 #include "soc/rtc_cntl_reg.h"
 #include "soc/sens_reg.h"
 #include "soc/rtc_periph.h"
+#include "esp_types.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "driver/periph_ctrl.h"
+#include "driver/timer.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "nvs_flash.h"
+#include "esp_types.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "driver/periph_ctrl.h"
+#include "driver/timer.h"
+#include "esp_system.h"
+#include "esp_log.h"
+#include "driver/uart.h"
+#include "string.h"
+#include "driver/gpio.h"
+#include "driver/ledc.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "nvs_flash.h"
+#include "esp_netif.h"
+#include "lwip/err.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+#include <lwip/netdb.h>
+#define PORT                   (2000)
+#define HOST_IP_ADDR "172.20.10.11"
+static const char *TAG = "socket";
+#include "lwip/err.h"
+#include "lwip/sys.h"
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include "freertos/event_groups.h"
+#include <string.h>
+
+#include "nvs_flash.h"
+#include "esp_err.h"
+#include "esp_log.h"
+#include "esp_system.h"
+
+#include <stdio.h>
+#include <stdarg.h>
+
+
+#include "esp_wifi.h"
+//
+#include "lwip/sockets.h"
+#include "lwip/dns.h"
+#include "lwip/netdb.h"
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "nvs_flash.h"
+
+#include "lwip/err.h"
+#include "lwip/sys.h"
+
+#define EXAMPLE_ESP_WIFI_SSID      "iPhone de Pablo"
+#define EXAMPLE_ESP_WIFI_PASS      "99999999"
+#define EXAMPLE_ESP_MAXIMUM_RETRY  (9)
+
+/* FreeRTOS event group to signal when we are connected*/
+static EventGroupHandle_t s_wifi_event_group;
+
+/* The event group allows multiple bits for each event, but we only care about two events:
+ * - we are connected to the AP with an IP
+ * - we failed to connect after the maximum amount of retries */
+#define WIFI_CONNECTED_BIT BIT0
+#define WIFI_FAIL_BIT      BIT1
+
+static int s_retry_num = 0;
 
 #define TXD_PIN               (GPIO_NUM_4)
 #define RXD_PIN               (GPIO_NUM_5)
@@ -65,19 +143,7 @@
 #define TIME_TO_SLEEP  5
 extern const uint8_t ulp_main_bin_start[] asm("_binary_ulp_main_bin_start");
 extern const uint8_t ulp_main_bin_end[]   asm("_binary_ulp_main_bin_end");
-
-
-/* This function is called once after power-on reset, to load ULP program into
- * RTC memory and configure the ADC.
- */
-
-
-/* This function is called every time before going into deep sleep.
- * It starts the ULP program and resets measurement counter.
- */
-
-
-static const int RX_BUF_SIZE = 1024;
+char payload [15];
 char sec = 0;
 bool led = false;
 struct Datos_sensor {
@@ -87,7 +153,88 @@ struct Datos_sensor {
     char estado[2];
     char BAT[2];
 };
+
 char src[14];
+
+void serialize(struct Datos_sensor *datos,char buffer[] , int bufferLength) {
+    
+    snprintf(
+        buffer,
+        bufferLength,
+        datos->UUID,
+        datos->ID_sensor,
+        datos->secuencia,
+        datos->estado,
+        datos->BAT
+    );
+    
+}
+
+static void udp_client_task()
+{
+
+    static const char *TAG = "example";
+    int addr_family = 0;
+    int ip_protocol = 0;
+
+
+    struct sockaddr_in dest_addr;
+    dest_addr.sin_addr.s_addr = inet_addr(HOST_IP_ADDR);
+    dest_addr.sin_family = AF_INET;
+    dest_addr.sin_port = htons(PORT);
+    addr_family = AF_INET;
+    ip_protocol = IPPROTO_IP;
+
+    int sock = socket(addr_family, SOCK_DGRAM, ip_protocol);
+    printf("El número de estado es: %d  \n",gpio_get_level(SENSOR_IN));
+    if (sock < 0) {
+        ESP_LOGE(TAG, "Unable to create socket: errno %d", errno);
+    }else{
+        if(gpio_get_level(SENSOR_IN) == 1){
+            struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "01",.BAT = "01"};
+            serialize(&dato,payload,15);
+            printf("Llega aqui \n ");
+            ESP_LOGI(TAG, "Socket created, sending to %s:%d", HOST_IP_ADDR, PORT);
+            
+            int err = sendto(sock, payload, strlen(payload), 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+            if (err < 0) {
+                ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
+            }else{
+                ESP_LOGI(TAG, "Message sent");
+                
+            }
+            vTaskDelay(2000 / portTICK_PERIOD_MS);
+        
+
+            if (sock != -1) {
+                ESP_LOGE(TAG, "Shutting down socket and restarting...");
+                shutdown(sock, 0);
+                close(sock);
+            }
+            
+        }else{
+            
+            struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "00",.BAT = "01"};
+            serialize(&dato,payload,15);
+            ESP_LOGI(TAG, "Socket created, sending to %s:%d", HOST_IP_ADDR, PORT);
+            int err = sendto(sock, payload, strlen(payload), 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+            if (err < 0) {
+                ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
+                
+            }else{
+                ESP_LOGI(TAG, "Message sent");
+                
+            }
+            vTaskDelay(2000 / portTICK_PERIOD_MS);
+            shutdown(sock, 0);
+            close(sock);
+            
+        }
+    
+}
+    }
+    
+
 
 void start_ulp_program(void){    
         esp_err_t err = ulp_load_binary(0, ulp_main_bin_start,
@@ -99,23 +246,15 @@ void start_ulp_program(void){
     int rtcio_num = rtc_io_number_get(gpio_num);
     assert(rtc_gpio_is_valid_gpio(gpio_num) && "GPIO used for pulse counting must be an RTC IO");
 
-    /* Initialize some variables used by ULP program.
-     * Each 'ulp_xyz' variable corresponds to 'xyz' variable in the ULP program.
-     * These variables are declared in an auto generated header file,
-     * 'ulp_main.h', name of this file is defined in component.mk as ULP_APP_NAME.
-     * These variables are located in RTC_SLOW_MEM and can be accessed both by the
-     * ULP and the main CPUs.
-     *
-     * Note that the ULP reads only the lower 16 bits of these variables.
-     */
+    
     ulp_debounce_counter = 3;
     ulp_debounce_max_count = 3;
-    ulp_next_edge = 0;
+    ulp_next_edge = 1;
     ulp_io_number = rtcio_num; /* map from GPIO# to RTC_IO# */
-    ulp_edge_count_to_wake_up = 10;
+    ulp_edge_count_to_wake_up = 3;
 
     /* Initialize selected GPIO as RTC IO, enable input, disable pullup and pulldown */
-    rtc_gpio_init(gpio_num);
+    rtc_gpio_deinit(gpio_num);
     rtc_gpio_set_direction(gpio_num, RTC_GPIO_MODE_INPUT_ONLY);
     rtc_gpio_pulldown_dis(gpio_num);
     rtc_gpio_pullup_dis(gpio_num);
@@ -138,38 +277,99 @@ void start_ulp_program(void){
     err = ulp_run(&ulp_entry - RTC_SLOW_MEM);
     ESP_ERROR_CHECK(err);
 }
-void serialize(struct Datos_sensor *datos) {
-    char buffer [14];
-    snprintf(
-        buffer,
-        15,
-        datos->UUID,
-        datos->ID_sensor,
-        datos->secuencia,
-        datos->estado,
-        datos->BAT
-    );
-    for (int i = 0;i<14;i++){
-        printf("Indice del buffer: %d \n",buffer[i]);
-        src[i] = buffer[i];
-    };
+
+static void event_handler(void* arg, esp_event_base_t event_base,
+                                int32_t event_id, void* event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        if (s_retry_num < EXAMPLE_ESP_MAXIMUM_RETRY) {
+            esp_wifi_connect();
+            s_retry_num++;
+            ESP_LOGI(TAG, "retry to connect to the AP");
+        } else {
+            xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
+        }
+        ESP_LOGI(TAG,"connect to the AP fail");
+    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+        s_retry_num = 0;
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
 }
 
+void wifi_init_sta(void)
+{
+    s_wifi_event_group = xEventGroupCreate();
 
+    ESP_ERROR_CHECK(esp_netif_init());
 
-void init_uart(void) {
-    const uart_config_t uart_config = {
-        .baud_rate = 115200,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-        .source_clk = UART_SCLK_APB,
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    esp_netif_create_default_wifi_sta();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    esp_event_handler_instance_t instance_any_id;
+    esp_event_handler_instance_t instance_got_ip;
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
+                                                        ESP_EVENT_ANY_ID,
+                                                        &event_handler,
+                                                        NULL,
+                                                        &instance_any_id));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
+                                                        IP_EVENT_STA_GOT_IP,
+                                                        &event_handler,
+                                                        NULL,
+                                                        &instance_got_ip));
+
+    wifi_config_t wifi_config = {
+        .sta = {
+            .ssid = EXAMPLE_ESP_WIFI_SSID,
+            .password = EXAMPLE_ESP_WIFI_PASS,
+            /* Setting a password implies station will connect to all security modes including WEP/WPA.
+             * However these modes are deprecated and not advisable to be used. Incase your Access point
+             * doesn't support WPA2, these mode can be enabled by commenting below line */
+	     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+
+            .pmf_cfg = {
+                .capable = true,
+                .required = false
+            },
+        },
     };
-    // We won't use a buffer for sending data.
-    uart_driver_install(UART_NUM_1, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
-    uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
+    ESP_ERROR_CHECK(esp_wifi_start() );
+
+    ESP_LOGI(TAG, "wifi_init_sta finished.");
+
+    /* Waiting until either the connection is established (WIFI_CONNECTED_BIT) or connection failed for the maximum
+     * number of re-tries (WIFI_FAIL_BIT). The bits are set by event_handler() (see above) */
+    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group,
+            WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
+            pdFALSE,
+            pdFALSE,
+            portMAX_DELAY);
+
+    /* xEventGroupWaitBits() returns the bits before the call returned, hence we can test which event actually
+     * happened. */
+    if (bits & WIFI_CONNECTED_BIT) {
+        ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
+                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+    } else if (bits & WIFI_FAIL_BIT) {
+        ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
+                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+    } else {
+        ESP_LOGE(TAG, "UNEXPECTED EVENT");
+    }
+
+    /* The event will not be processed after unregister */
+    ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, instance_got_ip));
+    ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, instance_any_id));
+    vEventGroupDelete(s_wifi_event_group);
 }
 
 int sendData(const char* logName, const char* data)
@@ -184,30 +384,10 @@ int sendData(const char* logName, const char* data)
 
 
 
-void tx_task()
-{
-    
-    static const char *TX_TASK_TAG = "TX_TASK";
-    esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
-    sec = sec + 1;
-    
-    if(rtc_gpio_get_level(SENSOR_IN) == 1){
-        printf("El número de estado es: %d  \n",rtc_gpio_get_level(SENSOR_IN));
-        struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "01",.BAT = "01"};
-        serialize(&dato);
-        sendData(TX_TASK_TAG, src);
-    }else{
-        printf("El número de estado es: %d  \n",gpio_get_level(SENSOR_IN));
-        struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "00",.BAT = "01"};
-        serialize(&dato);
-        sendData(TX_TASK_TAG, src);
-    }
-    
 
 
     
 
-}
 
 
 /*static void sensor_task(void *arg)
@@ -232,22 +412,30 @@ void tx_task()
 
 void app_main(void)
 {
-   
-    init_uart();
+      esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
+    wifi_init_sta();
     esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();
     printf("Causa %d \n",cause);
     if (cause == 0) {
         printf("Not ULP wakeup, initializing ULP\n");
         start_ulp_program();
     } else {
-        printf("ULP wakeup, saving pulse count\n");
+        printf("ULP wakeup timer \n ");
         if(cause == 4){
-            tx_task();
-            
+            udp_client_task();
+            start_ulp_program();
         }else{
             if (cause == 6)
             {
-                tx_task();
+                printf("ULP wakeup switch \n ");
+                udp_client_task();
                 start_ulp_program();
             }
             

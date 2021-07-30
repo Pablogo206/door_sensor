@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/pablo/esp-idf/workspace/ulp/main
+# Install script for directory: C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/ulp-example")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/ulp")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

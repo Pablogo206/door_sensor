@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/ulp_main.bin
+/* * Data converted from C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/ulp_main.bin
  */
 .data
 .section .rodata.embedded

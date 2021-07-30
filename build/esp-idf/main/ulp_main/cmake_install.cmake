@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,5 +1,5 @@
-C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/CMakeFiles/ulp_main_ld_script.dir
-C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/CMakeFiles/ulp_main.dir
-C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/CMakeFiles/build.dir
-C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/CMakeFiles/edit_cache.dir
-C:/Users/pablo/esp-idf/workspace/ulp/build/esp-idf/main/ulp_main/CMakeFiles/rebuild_cache.dir
+C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/CMakeFiles/ulp_main_ld_script.dir
+C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/CMakeFiles/ulp_main.dir
+C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/CMakeFiles/build.dir
+C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/CMakeFiles/edit_cache.dir
+C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/CMakeFiles/rebuild_cache.dir
