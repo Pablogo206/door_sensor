@@ -46,8 +46,8 @@ build cmake_object_order_depends_target_ulp_main: phony || esp32.ulp.ld pulse_cn
 
 build CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj: ASM_COMPILER__ulp_main pulse_cnt.ulp.S || cmake_object_order_depends_target_ulp_main
   DEP_FILE = CMakeFiles\ulp_main.dir\pulse_cnt.ulp.S.obj.d
-  FLAGS = -al=C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/pulse_cnt.lst
-  INCLUDES = -IC:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/config -IC:/Users/pablo/esp-idf/components/newlib/platform_include -IC:/Users/pablo/esp-idf/components/freertos/include -IC:/Users/pablo/esp-idf/components/freertos/port/xtensa/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/port/esp32/. -IC:/Users/pablo/esp-idf/components/heap/include -IC:/Users/pablo/esp-idf/components/log/include -IC:/Users/pablo/esp-idf/components/lwip/include/apps -IC:/Users/pablo/esp-idf/components/lwip/include/apps/sntp -IC:/Users/pablo/esp-idf/components/lwip/lwip/src/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include/arch -IC:/Users/pablo/esp-idf/components/soc/include -IC:/Users/pablo/esp-idf/components/soc/esp32/. -IC:/Users/pablo/esp-idf/components/soc/esp32/include -IC:/Users/pablo/esp-idf/components/hal/esp32/include -IC:/Users/pablo/esp-idf/components/hal/include -IC:/Users/pablo/esp-idf/components/esp_rom/include -IC:/Users/pablo/esp-idf/components/esp_rom/esp32 -IC:/Users/pablo/esp-idf/components/esp_common/include -IC:/Users/pablo/esp-idf/components/esp_system/include -IC:/Users/pablo/esp-idf/components/esp32/include -IC:/Users/pablo/esp-idf/components/driver/include -IC:/Users/pablo/esp-idf/components/driver/esp32/include -IC:/Users/pablo/esp-idf/components/esp_ringbuf/include -IC:/Users/pablo/esp-idf/components/efuse/include -IC:/Users/pablo/esp-idf/components/efuse/esp32/include -IC:/Users/pablo/esp-idf/components/xtensa/include -IC:/Users/pablo/esp-idf/components/xtensa/esp32/include -IC:/Users/pablo/esp-idf/components/espcoredump/include -IC:/Users/pablo/esp-idf/components/esp_timer/include -IC:/Users/pablo/esp-idf/components/esp_ipc/include -IC:/Users/pablo/esp-idf/components/esp_pm/include -IC:/Users/pablo/esp-idf/components/vfs/include -IC:/Users/pablo/esp-idf/components/esp_wifi/include -IC:/Users/pablo/esp-idf/components/esp_wifi/esp32/include -IC:/Users/pablo/esp-idf/components/esp_event/include -IC:/Users/pablo/esp-idf/components/esp_netif/include -IC:/Users/pablo/esp-idf/components/esp_eth/include -IC:/Users/pablo/esp-idf/components/tcpip_adapter/include -IC:/Users/pablo/esp-idf/components/app_trace/include -IC:/Users/pablo/esp-idf/components/nvs_flash/include -IC:/Users/pablo/esp-idf/components/spi_flash/include -IC:/Users/pablo/esp-idf/components/mbedtls/port/include -IC:/Users/pablo/esp-idf/components/mbedtls/mbedtls/include -IC:/Users/pablo/esp-idf/components/mbedtls/esp_crt_bundle/include -IC:/Users/pablo/esp-idf/components/ulp/include
+  FLAGS = -al=C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/pulse_cnt.lst
+  INCLUDES = -IC:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/config -IC:/Users/pablo/esp-idf/components/newlib/platform_include -IC:/Users/pablo/esp-idf/components/freertos/include -IC:/Users/pablo/esp-idf/components/freertos/port/xtensa/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/port/esp32/. -IC:/Users/pablo/esp-idf/components/heap/include -IC:/Users/pablo/esp-idf/components/log/include -IC:/Users/pablo/esp-idf/components/lwip/include/apps -IC:/Users/pablo/esp-idf/components/lwip/include/apps/sntp -IC:/Users/pablo/esp-idf/components/lwip/lwip/src/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include/arch -IC:/Users/pablo/esp-idf/components/soc/include -IC:/Users/pablo/esp-idf/components/soc/esp32/. -IC:/Users/pablo/esp-idf/components/soc/esp32/include -IC:/Users/pablo/esp-idf/components/hal/esp32/include -IC:/Users/pablo/esp-idf/components/hal/include -IC:/Users/pablo/esp-idf/components/esp_rom/include -IC:/Users/pablo/esp-idf/components/esp_rom/esp32 -IC:/Users/pablo/esp-idf/components/esp_common/include -IC:/Users/pablo/esp-idf/components/esp_system/include -IC:/Users/pablo/esp-idf/components/esp32/include -IC:/Users/pablo/esp-idf/components/driver/include -IC:/Users/pablo/esp-idf/components/driver/esp32/include -IC:/Users/pablo/esp-idf/components/esp_ringbuf/include -IC:/Users/pablo/esp-idf/components/efuse/include -IC:/Users/pablo/esp-idf/components/efuse/esp32/include -IC:/Users/pablo/esp-idf/components/xtensa/include -IC:/Users/pablo/esp-idf/components/xtensa/esp32/include -IC:/Users/pablo/esp-idf/components/espcoredump/include -IC:/Users/pablo/esp-idf/components/esp_timer/include -IC:/Users/pablo/esp-idf/components/esp_ipc/include -IC:/Users/pablo/esp-idf/components/esp_pm/include -IC:/Users/pablo/esp-idf/components/vfs/include -IC:/Users/pablo/esp-idf/components/esp_wifi/include -IC:/Users/pablo/esp-idf/components/esp_wifi/esp32/include -IC:/Users/pablo/esp-idf/components/esp_event/include -IC:/Users/pablo/esp-idf/components/esp_netif/include -IC:/Users/pablo/esp-idf/components/esp_eth/include -IC:/Users/pablo/esp-idf/components/tcpip_adapter/include -IC:/Users/pablo/esp-idf/components/app_trace/include -IC:/Users/pablo/esp-idf/components/bt/common/osi/include -IC:/Users/pablo/esp-idf/components/bt/include/esp32/include -IC:/Users/pablo/esp-idf/components/bt/host/bluedroid/api/include/api -IC:/Users/pablo/esp-idf/components/nvs_flash/include -IC:/Users/pablo/esp-idf/components/spi_flash/include -IC:/Users/pablo/esp-idf/components/mbedtls/port/include -IC:/Users/pablo/esp-idf/components/mbedtls/mbedtls/include -IC:/Users/pablo/esp-idf/components/mbedtls/esp_crt_bundle/include -IC:/Users/pablo/esp-idf/components/ulp/include
   OBJECT_DIR = CMakeFiles\ulp_main.dir
   OBJECT_FILE_DIR = CMakeFiles\ulp_main.dir
   TARGET_COMPILE_PDB = CMakeFiles\ulp_main.dir\
@@ -55,8 +55,8 @@ build CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj: ASM_COMPILER__ulp_main pulse_
 
 build CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj: ASM_COMPILER__ulp_main wake_up.ulp.S || cmake_object_order_depends_target_ulp_main
   DEP_FILE = CMakeFiles\ulp_main.dir\wake_up.ulp.S.obj.d
-  FLAGS = -al=C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/wake_up.lst
-  INCLUDES = -IC:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/config -IC:/Users/pablo/esp-idf/components/newlib/platform_include -IC:/Users/pablo/esp-idf/components/freertos/include -IC:/Users/pablo/esp-idf/components/freertos/port/xtensa/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/port/esp32/. -IC:/Users/pablo/esp-idf/components/heap/include -IC:/Users/pablo/esp-idf/components/log/include -IC:/Users/pablo/esp-idf/components/lwip/include/apps -IC:/Users/pablo/esp-idf/components/lwip/include/apps/sntp -IC:/Users/pablo/esp-idf/components/lwip/lwip/src/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include/arch -IC:/Users/pablo/esp-idf/components/soc/include -IC:/Users/pablo/esp-idf/components/soc/esp32/. -IC:/Users/pablo/esp-idf/components/soc/esp32/include -IC:/Users/pablo/esp-idf/components/hal/esp32/include -IC:/Users/pablo/esp-idf/components/hal/include -IC:/Users/pablo/esp-idf/components/esp_rom/include -IC:/Users/pablo/esp-idf/components/esp_rom/esp32 -IC:/Users/pablo/esp-idf/components/esp_common/include -IC:/Users/pablo/esp-idf/components/esp_system/include -IC:/Users/pablo/esp-idf/components/esp32/include -IC:/Users/pablo/esp-idf/components/driver/include -IC:/Users/pablo/esp-idf/components/driver/esp32/include -IC:/Users/pablo/esp-idf/components/esp_ringbuf/include -IC:/Users/pablo/esp-idf/components/efuse/include -IC:/Users/pablo/esp-idf/components/efuse/esp32/include -IC:/Users/pablo/esp-idf/components/xtensa/include -IC:/Users/pablo/esp-idf/components/xtensa/esp32/include -IC:/Users/pablo/esp-idf/components/espcoredump/include -IC:/Users/pablo/esp-idf/components/esp_timer/include -IC:/Users/pablo/esp-idf/components/esp_ipc/include -IC:/Users/pablo/esp-idf/components/esp_pm/include -IC:/Users/pablo/esp-idf/components/vfs/include -IC:/Users/pablo/esp-idf/components/esp_wifi/include -IC:/Users/pablo/esp-idf/components/esp_wifi/esp32/include -IC:/Users/pablo/esp-idf/components/esp_event/include -IC:/Users/pablo/esp-idf/components/esp_netif/include -IC:/Users/pablo/esp-idf/components/esp_eth/include -IC:/Users/pablo/esp-idf/components/tcpip_adapter/include -IC:/Users/pablo/esp-idf/components/app_trace/include -IC:/Users/pablo/esp-idf/components/nvs_flash/include -IC:/Users/pablo/esp-idf/components/spi_flash/include -IC:/Users/pablo/esp-idf/components/mbedtls/port/include -IC:/Users/pablo/esp-idf/components/mbedtls/mbedtls/include -IC:/Users/pablo/esp-idf/components/mbedtls/esp_crt_bundle/include -IC:/Users/pablo/esp-idf/components/ulp/include
+  FLAGS = -al=C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/wake_up.lst
+  INCLUDES = -IC:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/config -IC:/Users/pablo/esp-idf/components/newlib/platform_include -IC:/Users/pablo/esp-idf/components/freertos/include -IC:/Users/pablo/esp-idf/components/freertos/port/xtensa/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/include -IC:/Users/pablo/esp-idf/components/esp_hw_support/port/esp32/. -IC:/Users/pablo/esp-idf/components/heap/include -IC:/Users/pablo/esp-idf/components/log/include -IC:/Users/pablo/esp-idf/components/lwip/include/apps -IC:/Users/pablo/esp-idf/components/lwip/include/apps/sntp -IC:/Users/pablo/esp-idf/components/lwip/lwip/src/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include -IC:/Users/pablo/esp-idf/components/lwip/port/esp32/include/arch -IC:/Users/pablo/esp-idf/components/soc/include -IC:/Users/pablo/esp-idf/components/soc/esp32/. -IC:/Users/pablo/esp-idf/components/soc/esp32/include -IC:/Users/pablo/esp-idf/components/hal/esp32/include -IC:/Users/pablo/esp-idf/components/hal/include -IC:/Users/pablo/esp-idf/components/esp_rom/include -IC:/Users/pablo/esp-idf/components/esp_rom/esp32 -IC:/Users/pablo/esp-idf/components/esp_common/include -IC:/Users/pablo/esp-idf/components/esp_system/include -IC:/Users/pablo/esp-idf/components/esp32/include -IC:/Users/pablo/esp-idf/components/driver/include -IC:/Users/pablo/esp-idf/components/driver/esp32/include -IC:/Users/pablo/esp-idf/components/esp_ringbuf/include -IC:/Users/pablo/esp-idf/components/efuse/include -IC:/Users/pablo/esp-idf/components/efuse/esp32/include -IC:/Users/pablo/esp-idf/components/xtensa/include -IC:/Users/pablo/esp-idf/components/xtensa/esp32/include -IC:/Users/pablo/esp-idf/components/espcoredump/include -IC:/Users/pablo/esp-idf/components/esp_timer/include -IC:/Users/pablo/esp-idf/components/esp_ipc/include -IC:/Users/pablo/esp-idf/components/esp_pm/include -IC:/Users/pablo/esp-idf/components/vfs/include -IC:/Users/pablo/esp-idf/components/esp_wifi/include -IC:/Users/pablo/esp-idf/components/esp_wifi/esp32/include -IC:/Users/pablo/esp-idf/components/esp_event/include -IC:/Users/pablo/esp-idf/components/esp_netif/include -IC:/Users/pablo/esp-idf/components/esp_eth/include -IC:/Users/pablo/esp-idf/components/tcpip_adapter/include -IC:/Users/pablo/esp-idf/components/app_trace/include -IC:/Users/pablo/esp-idf/components/bt/common/osi/include -IC:/Users/pablo/esp-idf/components/bt/include/esp32/include -IC:/Users/pablo/esp-idf/components/bt/host/bluedroid/api/include/api -IC:/Users/pablo/esp-idf/components/nvs_flash/include -IC:/Users/pablo/esp-idf/components/spi_flash/include -IC:/Users/pablo/esp-idf/components/mbedtls/port/include -IC:/Users/pablo/esp-idf/components/mbedtls/mbedtls/include -IC:/Users/pablo/esp-idf/components/mbedtls/esp_crt_bundle/include -IC:/Users/pablo/esp-idf/components/ulp/include
   OBJECT_DIR = CMakeFiles\ulp_main.dir
   OBJECT_FILE_DIR = CMakeFiles\ulp_main.dir
   TARGET_COMPILE_PDB = CMakeFiles\ulp_main.dir\
@@ -72,7 +72,7 @@ build CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj: ASM_COMPILER__ulp_main wake_up.
 
 build ulp_main: ASM_EXECUTABLE_LINKER__ulp_main CMakeFiles/ulp_main.dir/pulse_cnt.ulp.S.obj CMakeFiles/ulp_main.dir/wake_up.ulp.S.obj | esp32.ulp.ld
   LINK_FLAGS = -A elf32-esp32ulp -nostdlib
-  LINK_LIBRARIES = -TC:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/esp32.ulp.ld  -Map=C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/ulp_main.map
+  LINK_LIBRARIES = -TC:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/esp32.ulp.ld  -Map=C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/ulp_main.map
   OBJECT_DIR = CMakeFiles\ulp_main.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -91,7 +91,7 @@ build build: phony CMakeFiles/build ulp_main.bin ulp_main.sym ulp_main.ld ulp_ma
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\cmake\3.16.4\bin\cmake-gui.exe -SC:\Users\pablo\esp-idf\components\ulp\cmake -BC:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main"
+  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\cmake\3.16.4\bin\cmake-gui.exe -SC:\Users\pablo\esp-idf\components\ulp\cmake -BC:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main"
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -103,7 +103,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\pablo\esp-idf\components\ulp\cmake -BC:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main"
+  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\cmake\3.16.4\bin\cmake.exe -SC:\Users\pablo\esp-idf\components\ulp\cmake -BC:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -121,7 +121,7 @@ build CMakeFiles/ulp_main_ld_script: phony esp32.ulp.ld
 # Custom command for esp32.ulp.ld
 
 build esp32.ulp.ld: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/components/ulp/ld/esp32.ulp.ld
-  COMMAND = CMakeFiles\esp32.ulp.ld-bb8608e.bat 3ff63f3afa71bd16
+  COMMAND = CMakeFiles\esp32.ulp.ld-bb8608e.bat 87f28c28219fab09
   DESC = Generating esp32.ulp.ld
   restat = 1
 
@@ -129,8 +129,8 @@ build esp32.ulp.ld: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/components/ulp/ld/esp
 #############################################
 # Custom command for pulse_cnt.ulp.S
 
-build pulse_cnt.ulp.S: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/main/ulp/pulse_cnt.S esp32.ulp.ld
-  COMMAND = CMakeFiles\pulse_cnt.ulp.S-fa029ff.bat 98ff2896d3c982aa
+build pulse_cnt.ulp.S: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/main/ulp/pulse_cnt.S esp32.ulp.ld
+  COMMAND = CMakeFiles\pulse_cnt.ulp.S-fa029ff.bat 86013d9d3874e910
   DESC = Generating pulse_cnt.ulp.S
   restat = 1
 
@@ -138,8 +138,8 @@ build pulse_cnt.ulp.S: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/workspace/cliente_
 #############################################
 # Custom command for wake_up.ulp.S
 
-build wake_up.ulp.S: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/main/ulp/wake_up.S esp32.ulp.ld
-  COMMAND = CMakeFiles\wake_up.ulp.S-82ea807.bat 51cd1a34ecf1bda5
+build wake_up.ulp.S: CUSTOM_COMMAND C$:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/main/ulp/wake_up.S esp32.ulp.ld
+  COMMAND = CMakeFiles\wake_up.ulp.S-82ea807.bat b4106b545b8fbda4
   DESC = Generating wake_up.ulp.S
   restat = 1
 
@@ -154,7 +154,7 @@ build CMakeFiles/build: phony ulp_main ulp_main.bin ulp_main.sym ulp_main.ld ulp
 # Custom command for ulp_main.bin
 
 build ulp_main.bin: CUSTOM_COMMAND ulp_main || ulp_main
-  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin\esp32ulp-elf-objcopy.exe -O binary C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/ulp_main ulp_main.bin"
+  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin\esp32ulp-elf-objcopy.exe -O binary C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/ulp_main ulp_main.bin"
   DESC = Generating ulp_main.bin
   restat = 1
 
@@ -163,7 +163,7 @@ build ulp_main.bin: CUSTOM_COMMAND ulp_main || ulp_main
 # Custom command for ulp_main.sym
 
 build ulp_main.sym: CUSTOM_COMMAND ulp_main || ulp_main
-  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin\esp32ulp-elf-nm.exe -g -f posix C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main/ulp_main > ulp_main.sym"
+  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\tools\esp32ulp-elf\2.28.51-esp-20191205\esp32ulp-elf-binutils\bin\esp32ulp-elf-nm.exe -g -f posix C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main/ulp_main > ulp_main.sym"
   DESC = Generating ulp_main.sym
   restat = 1
 
@@ -172,7 +172,7 @@ build ulp_main.sym: CUSTOM_COMMAND ulp_main || ulp_main
 # Custom command for ulp_main.ld
 
 build ulp_main.ld ulp_main.h: CUSTOM_COMMAND ulp_main.sym || ulp_main
-  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\cliente_sensor\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\python_env\idf4.3_py3.8_env\Scripts\python.exe C:/Users/pablo/esp-idf/components/ulp/esp32ulp_mapgen.py . -s ulp_main.sym -o ulp_main"
+  COMMAND = cmd.exe /C "cd /D C:\Users\pablo\esp-idf\workspace\bluetooth_server\ulp\build\esp-idf\main\ulp_main && C:\Users\pablo\.espressif\python_env\idf4.3_py3.8_env\Scripts\python.exe C:/Users/pablo/esp-idf/components/ulp/esp32ulp_mapgen.py . -s ulp_main.sym -o ulp_main"
   DESC = Generating ulp_main.ld, ulp_main.h
   restat = 1
 
@@ -185,7 +185,7 @@ build ulp_main.ld ulp_main.h: CUSTOM_COMMAND ulp_main.sym || ulp_main
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/build/esp-idf/main/ulp_main
+# Folder: C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/build/esp-idf/main/ulp_main
 
 build all: phony ulp_main
 

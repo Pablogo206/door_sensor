@@ -1,7 +1,7 @@
        
 MEMORY
 {
-    ram(RW) : ORIGIN = 0, LENGTH = 1024
+    ram(RW) : ORIGIN = 0, LENGTH = 512
 }
 SECTIONS
 {

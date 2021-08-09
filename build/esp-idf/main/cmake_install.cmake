@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/pablo/esp-idf/workspace/cliente_sensor/ulp/main
+# Install script for directory: C:/Users/pablo/esp-idf/workspace/bluetooth_server/ulp/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -50,8 +50,8 @@ MEMORY
      in heap at runtime. However due to static ROM memory usage at this 176KB mark, the
      additional static memory temporarily cannot be used.
   */
-  dram0_0_seg (RW) : org = 0x3FFB0000 + 0x0,
-                                     len = 0x2c200 - 0x0
+  dram0_0_seg (RW) : org = 0x3FFB0000 + 0xdb5c,
+                                     len = 0x2c200 - 0xdb5c
   /* Flash mapped constant data */
   drom0_0_seg (R) : org = 0x3F400020, len = 0x400000-0x20
   /* (See iram0_2_seg for meaning of 0x20 offset in the above.) */
@@ -59,13 +59,13 @@ MEMORY
    */
   rtc_iram_seg(RWX) : org = 0x400C0000, len = 0x2000
   /* RTC fast memory (same block as above), viewed from data bus */
-  rtc_data_seg(RW) : org = 0x3ff80000, len = 0x2000 - (0x10)
+  rtc_data_seg(RW) : org = 0x3ff80000, len = 0x2000 - 0
   /* RTC slow memory (data accessible). Persists over deep sleep.
 
      Start of RTC slow memory is reserved for ULP co-processor code + data, if enabled.
   */
-  rtc_slow_seg(RW) : org = 0x50000000 + 1024,
-                                     len = 0x2000 - 1024
+  rtc_slow_seg(RW) : org = 0x50000000 + 512,
+                                     len = 0x2000 - 512
   /* external memory ,including data and text */
   extern_ram_seg(RWX) : org = 0x3F800000,
                                      len = 0x400000

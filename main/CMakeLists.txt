@@ -1,5 +1,6 @@
 idf_component_register(SRCS "ulp_example_main.c"
                     INCLUDE_DIRS ""
+                    REQUIRES "bt" # required to be able to #include esp_bt.h
                     REQUIRES soc nvs_flash ulp)
 #
 # ULP support additions to component CMakeLists.txt.
