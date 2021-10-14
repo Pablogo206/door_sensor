@@ -84,8 +84,9 @@
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include <lwip/netdb.h>
-#define PORT                   (2000)
-#define HOST_IP_ADDR "172.20.10.11"
+#define PORT                   (3333)
+#define HOST_IP_ADDR "192.168.100.91"
+
 static const char *TAG = "socket";
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -101,8 +102,10 @@ static const char *TAG = "socket";
 
 #include <stdio.h>
 #include <stdarg.h>
-
-
+#include "driver/rtc_io.h"
+#include "soc/rtc_cntl_reg.h"
+#include "soc/sens_reg.h"
+#include "soc/rtc_periph.h"
 #include "esp_wifi.h"
 //
 #include "lwip/sockets.h"
@@ -121,8 +124,8 @@ static const char *TAG = "socket";
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-#define EXAMPLE_ESP_WIFI_SSID      "iPhone de Pablo"
-#define EXAMPLE_ESP_WIFI_PASS      "99999999"
+#define EXAMPLE_ESP_WIFI_SSID      "WiFi_OliveNet-B2A59B"
+#define EXAMPLE_ESP_WIFI_PASS      "hvn3She5cp99999999"
 #define EXAMPLE_ESP_MAXIMUM_RETRY  (9)
 
 /* FreeRTOS event group to signal when we are connected*/
@@ -140,11 +143,12 @@ static int s_retry_num = 0;
 #define RXD_PIN               (GPIO_NUM_5)
 #define SENSOR_IN             (GPIO_NUM_13)
 #define uS_TO_S_FACTOR 1000000
-#define TIME_TO_SLEEP  5
+#define TIME_TO_SLEEP  60
 extern const uint8_t ulp_main_bin_start[] asm("_binary_ulp_main_bin_start");
 extern const uint8_t ulp_main_bin_end[]   asm("_binary_ulp_main_bin_end");
 char payload [15];
-char sec = 0;
+RTC_DATA_ATTR uint8_t adv_raw_data[7] = { 0xFF,0xFF,0xE4,0x01,0x00,0x00,0x00};
+RTC_DATA_ATTR char sec[2] = "00";
 bool led = false;
 struct Datos_sensor {
     char UUID[4];
@@ -191,48 +195,34 @@ static void udp_client_task()
         ESP_LOGE(TAG, "Unable to create socket: errno %d", errno);
     }else{
         if(gpio_get_level(SENSOR_IN) == 1){
-            struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "01",.BAT = "01"};
-            serialize(&dato,payload,15);
-            printf("Llega aqui \n ");
             ESP_LOGI(TAG, "Socket created, sending to %s:%d", HOST_IP_ADDR, PORT);
-            
-            int err = sendto(sock, payload, strlen(payload), 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+            adv_raw_data[4]++;
+            adv_raw_data[5] = 0x01;
+            int err = sendto(sock, adv_raw_data, 7, 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
             if (err < 0) {
                 ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
             }else{
                 ESP_LOGI(TAG, "Message sent");
-                
             }
-            vTaskDelay(2000 / portTICK_PERIOD_MS);
-        
-
-            if (sock != -1) {
-                ESP_LOGE(TAG, "Shutting down socket and restarting...");
-                shutdown(sock, 0);
-                close(sock);
-            }
-            
         }else{
-            
-            struct Datos_sensor dato = {.UUID = "FFE4", .ID_sensor = "0001", .secuencia = "01" , .estado = "00",.BAT = "01"};
-            serialize(&dato,payload,15);
             ESP_LOGI(TAG, "Socket created, sending to %s:%d", HOST_IP_ADDR, PORT);
-            int err = sendto(sock, payload, strlen(payload), 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+            adv_raw_data[4]++;
+            adv_raw_data[5] = 0x00;
+            int err = sendto(sock, adv_raw_data,7, 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
             if (err < 0) {
                 ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
                 
             }else{
                 ESP_LOGI(TAG, "Message sent");
-                
             }
-            vTaskDelay(2000 / portTICK_PERIOD_MS);
-            shutdown(sock, 0);
-            close(sock);
-            
         }
-    
-}
+        
+        shutdown(sock, 0);
+        close(sock);
+        printf("Cerrando socket \n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
+}
     
 
 
@@ -372,15 +362,7 @@ void wifi_init_sta(void)
     vEventGroupDelete(s_wifi_event_group);
 }
 
-int sendData(const char* logName, const char* data)
-{
-    
-    const int len = strlen(data);
-    printf("longitud %d \n",len);
-    const int txBytes = uart_write_bytes(UART_NUM_1, data, len);
-    ESP_LOGI(logName, "Wrote %d bytes", txBytes);
-    return txBytes;
-}
+
 
 
 
@@ -412,6 +394,8 @@ int sendData(const char* logName, const char* data)
 
 void app_main(void)
 {
+    //sec = sec +1;
+    //printf("Secuencia %d : \n",sec);
       esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
       ESP_ERROR_CHECK(nvs_flash_erase());
@@ -427,8 +411,9 @@ void app_main(void)
         printf("Not ULP wakeup, initializing ULP\n");
         start_ulp_program();
     } else {
-        printf("ULP wakeup timer \n ");
+       
         if(cause == 4){
+            printf("ULP wakeup timer \n ");
             udp_client_task();
             start_ulp_program();
         }else{
@@ -438,11 +423,7 @@ void app_main(void)
                 udp_client_task();
                 start_ulp_program();
             }
-            
-            
         }
-        
-        
     }
     printf("Entering deep sleep\n\n");
     esp_sleep_enable_ulp_wakeup();
