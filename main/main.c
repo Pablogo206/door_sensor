@@ -77,17 +77,17 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
 				
 				uint8_t *advertisement_raw = param->scan_rst.ble_adv;
 				if(advertisement_raw[5] == 0xE4 && advertisement_raw[6]==0xFF){	//Y aqui filtramos para que sean las nuestras
-					uint8_t *msg_adv = &advertisement_raw[9];
+					uint8_t *msg_adv = &advertisement_raw[10];
 					for (int  i = 0; i < 17; i++)
 					{
 						printf("Indice: %d",i);
 						printf(" array de recibido : %d \n",msg_adv[i]);
 					}
 					
-					if(msg_adv[5]!=num_seq){
+					if(msg_adv[4]!=num_seq){
 						printf("LLega aqui \n");
-						uart_write_bytes(UART_NUM_1, (const char *) msg_adv, 8);
-						num_seq = msg_adv[5];
+						uart_write_bytes(UART_NUM_1, (const char *) msg_adv, 7);
+						num_seq = msg_adv[4];
 					}
 				}
 				
