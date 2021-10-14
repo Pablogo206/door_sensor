@@ -129,9 +129,9 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 #define PORT                   (3333)
-#define HOST_IP_ADDR "172.20.10.2"
-#define EXAMPLE_ESP_WIFI_SSID      "iPhone de Pablo"
-#define EXAMPLE_ESP_WIFI_PASS      "99999999"
+#define HOST_IP_ADDR "192.168.100.91"
+#define EXAMPLE_ESP_WIFI_SSID      "WiFi_OliveNet-B2A59B"
+#define EXAMPLE_ESP_WIFI_PASS      "hvn3She5cp99999999"
 #define EXAMPLE_ESP_MAXIMUM_RETRY  (9)
 #define SENSOR_IN             (GPIO_NUM_13)
 /* FreeRTOS event group to signal when we are connected*/
@@ -168,7 +168,7 @@ static esp_ble_adv_params_t ble_adv_params = {
 
 RTC_DATA_ATTR  uint8_t n_seq = 0;
 												  
-RTC_DATA_ATTR uint8_t adv_raw_data[17] = {0x02,0x01,0x06,0x03,0x03,0xE4,0xFF,0x08,0x16,0xE4,
+RTC_DATA_ATTR uint8_t adv_raw_data[17] = {0x02,0x01,0x07,0x03,0x03,0xE4,0xFF,0x08,0x16,0xE4,
 								   0xFF,0xFF,0xE4,0x01,0x00,0x00,0x00};
 								   		//UUID	  //ID//Seq//State//Bateria	
 										
